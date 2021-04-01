@@ -7,14 +7,15 @@
   <link rel="icon" href="favicon.png" type="image/x-icon" />
   <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="css/index.css">
-  <title> Roots Network - Strengthen your connection to the infinite information on the internet </title>
+  <title> Crypto Roots - Strengthen your connection to the infinite information on the internet </title>
 </head>
 
 <!------------ Sidebar -------------->
 <body>
 <div id="app">
   <div id="column-1">
-    <h1 class="page-title"><a href=".">Roots Network</a> <span id="results-count">{{filteredBookmarks.length}}</span></h1>
+    <h1 class="page-title"><a href=".">Crypto Roots</a> <span id="results-count">{{filteredBookmarks.length}}</span></h1>
+    <p> Crypto bookmarking app</p>
       <input type="text" v-model='search' id="searchbar" name="search" value="">
     <button class="settings-button" id="new-bookmark-button" v-on:click="toggleShow()"><i class="fas dl fa-bookmark"></i> New</button>
     <button  class="settings-button" id="config-button" v-on:click="toggleEdit"><i class="far dl fa-edit"></i> Edit
