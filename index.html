@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  <link rel="icon" href="favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <title> Roots Network - Strengthen your connection to the infinite information on the internet </title>
+</head>
+
+<!------------ Sidebar -------------->
+<body>
+<div id="app">
+  <div id="column-1">
+    <h1 class="page-title"><a href=".">Roots Network</a> <span id="results-count">{{filteredBookmarks.length}}</span></h1>
+      <input type="text" v-model='search' id="searchbar" name="search" value="">
+    <button class="settings-button" id="new-bookmark-button" v-on:click="toggleShow()"><i class="fas dl fa-bookmark"></i> New</button>
+    <button  class="settings-button" id="config-button" v-on:click="toggleEdit"><i class="far dl fa-edit"></i> Edit
+    </button>
+      <button class="nav-tag" class="globaltagbutton" v-for="item in popularTagsList" v-on:click="tagFilter(item)">{{item.name}}</button> 
+  </div>
+
+<!------------ Add new link -------------->
+    <div id="submit-form" v-if='show'>
+      <div id="input-container">
+        <input class="half-input" type="text" v-model="newlinkname" placeholder="name">
+        <input class="half-input" type="text" v-model="newlinkurl" placeholder="url">
+        <input type="text" v-model="newlinkdescription" placeholder="description">
+      </div>
+      <div id="submit-div" >
+        <button id='submit-button' v-on:click.prevent="addLink()">Submit</button>
+      </div>
+    </div>
+
+<!-------------- Main Content: Bookmarks -------------->
+<div id="column-2">
+  <ul >
+    <li class="bookmark-item" v-for="link in filteredBookmarks">
+      <i class="fas fa-times close-icon settings-icons" v-on:click="removeBookmark(link)"></i>
+      <i v-if="link.favorited" class="fas fa-star favorite-icon favorite-icon-selected settings-icons" v-on:click="favoriteBookmark(link)"></i>
+      <i v-else class="far fa-star favorite-icon settings-icons" v-on:click="favoriteBookmark(link)"></i>
+
+      <div v-if="editable">
+        <small><a v-bind:href=link.hyperlink >{{link.text}}</a></small>
+        <small>title:</small>
+        <input class="edit-input" v-model="link.text">
+        <br>
+        <small>description:</small>
+        <input class="edit-input" v-model="link.description">
+        <br> 
+        <small>tag:</small>
+        <input class="edit-input" style="width: 80px" v-model="link.newtag"> 
+        <button id="new-tag" v-on:click="addTag(link)"><i class="far dl fa-plus-square"></i></button>
+      </div>
+      <a v-else v-bind:href=link.hyperlink target=_blank rel="noopener noreferrer" class="link-title">
+        {{link.text}}</a>
+      <p class="link-description"> {{link.description}} </p> 
+      <button v-for="tag in link.taglist" class="tag-button"> {{tag}}
+        <i class="fas fa-times close-tag-icon" v-on:click="removeTag(link, tag)"></i></button>
+    </li>
+  </ul>
+</div>
+</div>
+<script src="js/index.js"></script>
+</body>
+</html>
